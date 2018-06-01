@@ -6,20 +6,7 @@
 // - reactDirective (factory for creating specific directives that correspond to reactComponent directives)
 
 
-(function (root, factory) {
-  if (typeof module !== 'undefined' && module.exports) {
-    // CommonJS
-    module.exports = factory(require('react'), require('react-dom'), require('angular'));
-  } else if (typeof define === 'function' && define.amd) {
-    // AMD
-    define(['react', 'react-dom', 'angular'], function (react, reactDOM, angular) {
-      return (root.ngReact = factory(react, reactDOM, angular));
-    });
-  } else {
-    // Global Variables
-    root.ngReact = factory(root.React, root.ReactDOM, root.angular);
-  }
-}(this, function ngReact(React, ReactDOM, angular) {
+module.exports = function ngReact(React, ReactDOM, angular) {
   'use strict';
 
   // get a react component from name (components can be an angular injectable e.g. value, factory or
@@ -316,4 +303,4 @@
   return angular.module('react', [])
     .directive('reactComponent', ['$injector', reactComponent])
     .factory('reactDirective', ['$injector', reactDirective]);
-}));
+}
